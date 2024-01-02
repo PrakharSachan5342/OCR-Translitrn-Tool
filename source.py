@@ -2,6 +2,9 @@
 from PIL import Image
 import easyocr
 
+# Path to the Tesseract executable
+tesseract_cmd = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Tesseract-OCR"
+
 # Initialize the easyocr reader for Sindhi
 reader = easyocr.Reader(['sd'])
 

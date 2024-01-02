@@ -1,16 +1,19 @@
-import pytesseract
+!pip install easyocr
 from PIL import Image
+import easyocr
 
-# Path to the Tesseract executable
-tesseract_cmd = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Tesseract-OCR"
+# Initialize the easyocr reader for Sindhi
+reader = easyocr.Reader(['sd'])
 
-# Read the Sindhi text image
-sindhi_image = Image.open('sindhi_text.png')
+# Load the image (upload it to Colab or provide the file path)
+image_path = '/content/sindhi_text.jpeg'  # Replace with your image file name
+sindhi_image = Image.open(image_path)
 
 # Perform OCR to extract Sindhi text
-sindhi_text = pytesseract.image_to_string(sindhi_image, lang='snd')
+results = reader.readtext(image_path)
+recognized_text = [result[1] for result in results]
+sindhi_text = '\n'.join(recognized_text)
 
-# Transliterate Sindhi text to Devanagari
 def sindhi_to_devanagari(sindhi_text):
     # Define a dictionary for Sindhi to Devanagari transliteration
     transliteration_dict = {
@@ -87,10 +90,7 @@ def sindhi_to_devanagari(sindhi_text):
 
     return devanagari_text
 
-    # You need to implement your own Sindhi to Devanagari transliteration logic here
-    # There are various libraries and methods available to perform this transliteration.
-    # You can use language-specific libraries or write custom rules based on your needs.
-
+# Transliterate Sindhi text to Devanagari
 devanagari_text = sindhi_to_devanagari(sindhi_text)
 
 # Print the transliterated Devanagari text
